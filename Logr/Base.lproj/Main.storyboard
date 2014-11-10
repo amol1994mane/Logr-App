@@ -196,7 +196,7 @@
         <!--Log for 10/26/14 9am-->
         <scene sceneID="obp-fs-5OU">
             <objects>
-                <viewController id="pai-D6-Rih" sceneMemberID="viewController">
+                <viewController id="pai-D6-Rih" customClass="Logs2VC" customModule="Logr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MCq-85-7yi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,10 +208,52 @@
                                     <navigationItem title="Title" id="wwu-Dp-L75"/>
                                 </items>
                             </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Happiness (1/2/3)" minimumFontSize="17" id="lUf-EK-kA3">
+                                <rect key="frame" x="16" y="141" width="137" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Productivity (1/2/3)" minimumFontSize="17" id="NpI-3q-9Iu">
+                                <rect key="frame" x="166" y="141" width="138" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Quick journal" minimumFontSize="17" id="VMG-ua-P08">
+                                <rect key="frame" x="16" y="187" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Goal achieved " minimumFontSize="17" id="F53-Db-yCA">
+                                <rect key="frame" x="16" y="93" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Goal achieved " minimumFontSize="17" id="9XD-7P-HQy">
+                                <rect key="frame" x="16" y="93" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Log for 10/26/14 9am" id="o1l-q8-7DL"/>
+                    <navigationItem key="navigationItem" title="Log for 10/26/14 9am" id="o1l-q8-7DL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="NyK-GU-t9E">
+                            <connections>
+                                <action selector="DoneButton:" destination="pai-D6-Rih" id="Lsb-tO-eQT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="GoalField" destination="9XD-7P-HQy" id="1ZC-ed-6gE"/>
+                        <outlet property="HappinessField" destination="lUf-EK-kA3" id="8M4-1K-xKR"/>
+                        <outlet property="JournalField" destination="VMG-ua-P08" id="Cxu-va-tBm"/>
+                        <outlet property="ProductivityField" destination="NpI-3q-9Iu" id="O70-y3-UdY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qk-4f-8Ub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -39,7 +39,7 @@ class GoalsTVC: UITableViewController {
         return 0
     }
 
-    
+    /*
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell = tableView.dequeueReusableCellWithIdentifier("goalcell", forIndexPath: indexPath) as UITableViewCell
 
@@ -47,7 +47,7 @@ class GoalsTVC: UITableViewController {
 
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.

@@ -17,6 +17,8 @@
 		9F04626119FEA0DF00D16FB2 /* JournalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04626019FEA0DF00D16FB2 /* JournalTVC.swift */; };
 		9F04626319FEA3D000D16FB2 /* Journal2TVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04626219FEA3D000D16FB2 /* Journal2TVC.swift */; };
 		9F04626519FEA69C00D16FB2 /* GoalsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04626419FEA69C00D16FB2 /* GoalsTVC.swift */; };
+		9FABF6981A1060A200353626 /* Logs2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FABF6971A1060A200353626 /* Logs2VC.swift */; };
+		9FABF69A1A1067F300353626 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FABF6991A1067F300353626 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		9F04626019FEA0DF00D16FB2 /* JournalTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalTVC.swift; sourceTree = "<group>"; };
 		9F04626219FEA3D000D16FB2 /* Journal2TVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal2TVC.swift; sourceTree = "<group>"; };
 		9F04626419FEA69C00D16FB2 /* GoalsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTVC.swift; sourceTree = "<group>"; };
+		9FABF6971A1060A200353626 /* Logs2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs2VC.swift; sourceTree = "<group>"; };
+		9FABF6991A1067F300353626 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +90,13 @@
 		9F04623719FE262100D16FB2 /* Logr */ = {
 			isa = PBXGroup;
 			children = (
+				9FABF6991A1067F300353626 /* SwiftyJSON.swift */,
 				9F04623A19FE262200D16FB2 /* AppDelegate.swift */,
 				9F04623C19FE262200D16FB2 /* ViewController.swift */,
 				9F04623E19FE262200D16FB2 /* Main.storyboard */,
 				9F04626419FEA69C00D16FB2 /* GoalsTVC.swift */,
 				9F04625E19FEA0CF00D16FB2 /* LogsTVC.swift */,
+				9FABF6971A1060A200353626 /* Logs2VC.swift */,
 				9F04626019FEA0DF00D16FB2 /* JournalTVC.swift */,
 				9F04626219FEA3D000D16FB2 /* Journal2TVC.swift */,
 				9F04624319FE262200D16FB2 /* LaunchScreen.xib */,
@@ -228,9 +234,11 @@
 				9F04626319FEA3D000D16FB2 /* Journal2TVC.swift in Sources */,
 				9F04623D19FE262200D16FB2 /* ViewController.swift in Sources */,
 				9F04626519FEA69C00D16FB2 /* GoalsTVC.swift in Sources */,
+				9FABF69A1A1067F300353626 /* SwiftyJSON.swift in Sources */,
 				9F04623B19FE262200D16FB2 /* AppDelegate.swift in Sources */,
 				9F04626119FEA0DF00D16FB2 /* JournalTVC.swift in Sources */,
 				9F04625F19FEA0CF00D16FB2 /* LogsTVC.swift in Sources */,
+				9FABF6981A1060A200353626 /* Logs2VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +430,7 @@
 				9F04625619FE262200D16FB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F04625719FE262200D16FB2 /* Build configuration list for PBXNativeTarget "LogrTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +439,7 @@
 				9F04625919FE262200D16FB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
