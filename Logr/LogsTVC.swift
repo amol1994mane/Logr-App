@@ -9,7 +9,13 @@
 import UIKit
 
 class LogsTVC: UITableViewController {
+    
 
+    var unfilledLogs =
+        ["10-11-14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
+        "09-11-14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]]
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,7 +36,7 @@ class LogsTVC: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {

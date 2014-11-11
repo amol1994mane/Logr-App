@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6246" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="91B-cg-eaV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="S3e-Wb-k8a">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--H&P-->
@@ -193,21 +193,14 @@
             </objects>
             <point key="canvasLocation" x="-173" y="1128"/>
         </scene>
-        <!--Log for 10/26/14 9am-->
+        <!--Log for X date and Y time-->
         <scene sceneID="obp-fs-5OU">
             <objects>
                 <viewController id="pai-D6-Rih" customClass="Logs2VC" customModule="Logr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MCq-85-7yi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="94" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" id="kEF-FF-qG2">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="wwu-Dp-L75"/>
-                                </items>
-                            </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Happiness (1/2/3)" minimumFontSize="17" id="lUf-EK-kA3">
                                 <rect key="frame" x="16" y="141" width="137" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -238,16 +231,32 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <navigationBar contentMode="scaleToFill" id="yYZ-ZT-eAS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="lol" id="Pb9-tz-Ygh">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="HJl-ko-bgP">
+                                            <connections>
+                                                <action selector="DoneButton:" destination="pai-D6-Rih" id="haO-ce-EIt"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Log for 10/26/14 9am" id="o1l-q8-7DL">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Log for X date and Y time" prompt="" id="o1l-q8-7DL">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="NyK-GU-t9E">
                             <connections>
                                 <action selector="DoneButton:" destination="pai-D6-Rih" id="Lsb-tO-eQT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="GoalField" destination="9XD-7P-HQy" id="1ZC-ed-6gE"/>
                         <outlet property="HappinessField" destination="lUf-EK-kA3" id="8M4-1K-xKR"/>

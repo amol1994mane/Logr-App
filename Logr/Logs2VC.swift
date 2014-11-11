@@ -18,24 +18,62 @@ class Logs2VC: UIViewController {
     let file="json.data"
     
     @IBAction func DoneButton(sender: AnyObject) {
-        let json=JSON(["logDateAndTime": "8/9/11/14", "goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text])
+        var json=JSON(["10-11-14":["08":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
         var error:NSError?
         let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
         jsonData.writeToFile(getFilePath(), options: NSDataWritingOptions.DataWritingFileProtectionNone, error: &error)
         if let theError = error {
             print("\(theError.localizedDescription)")
         }
+        
+        clearFields()
+        
+        var previousData = loadPreviousData()
+        println(previousData)
+        //figure out a way to make checkboxes for options
         //after clicking done, app should shift to the previous table. table should have been updated (one less cell because we filled out information for it)
-        
-        
-        /* why did this not work?
-        let theError=error
-        if theError != nil {
-            print("\(theError.localizedDescription)")
-        }
-        */
     }
     
+    func clearFields() {
+        goalField.text=""
+        happinessField.text=""
+        productivityField.text=""
+        journalField.text=""
+    }
+    
+    func loadPreviousData() ->JSON {
+        var error:NSError?
+        let previousNSData:NSData? = NSData(contentsOfFile: getFilePath(), options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &error)
+        var previousJSON:JSON?
+        if let theError = error {
+            println("\(theError.localizedDescription)")
+        }
+        else {
+            previousJSON=JSON(data:previousNSData!)
+        }
+    return previousJSON!
+    }
+    
+    /*
+    @IBAction func loadName(sender: AnyObject) {
+    
+    var error:NSError?
+    let data:NSData? = NSData(contentsOfFile: getFilePath(), options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &error)
+    if let theError = error {
+    print("\(theError.localizedDescription)")
+    } else {
+    let json = JSON(data:data!)
+    let name = json["name"].string
+    if name != nil{
+    nameField.text = name
+    }
+    if let surname = json["surname"].string {
+    surnameField.text = surname
+    }
+    }
+    }
+    */
+
     func getFilePath()->String {
         let dirs:[String]? = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String]
         var path = ""
@@ -43,7 +81,7 @@ class Logs2VC: UIViewController {
             //what is the purpose of the next 2 lines?
             let directories:[String] = dirs!
             let dirs = directories[0]
-            path=dirs+"file"
+            path=dirs.stringByAppendingPathComponent(file)
         }
         return path
     }
@@ -58,29 +96,6 @@ class Logs2VC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    @IBAction func loadName(sender: AnyObject) {
-    
-        var error:NSError?
-        let data:NSData? = NSData(contentsOfFile: getFilePath(), options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &error)
-        if let theError = error {
-            print("\(theError.localizedDescription)")
-        } else {
-            let json = JSON(data:data!)
-            let name = json["name"].string
-            if name != nil{
-                nameField.text = name
-            }
-            if let surname = json["surname"].string {
-                surnameField.text = surname
-            }
-        }
-    }
-    */
-    
-
-
     /*
     // MARK: - Navigation
 
