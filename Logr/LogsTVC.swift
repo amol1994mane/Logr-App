@@ -10,15 +10,21 @@ import UIKit
 
 class LogsTVC: UITableViewController {
     
+    struct logs {
+        var dateAndTimes: [String:[String]]
+    }
 
-    var unfilledLogs =
-        ["10-11-14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
-        "09-11-14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]]
-
+    var unfilledLogs: [logs] = []
+    var day1 = logs(dateAndTimes: ["11/15/14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
+                                "11/16/14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]])
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        unfilledLogs.append(day1)
+        
+        //println(unfilledLogs[0].dateAndTimes["11/15/14"])
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,27 +39,37 @@ class LogsTVC: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
+        return unfilledLogs.count
+    }
+
+    override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
         return 1
     }
 
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
-    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
 
-    /*
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-
+        if (cell.textLabel.text?==nil) {
+        
+        }
         return cell
     }
+    
+    /*
+    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    
     */
+
 
     /*
     // Override to support conditional editing of the table view.
