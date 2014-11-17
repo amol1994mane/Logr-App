@@ -17,9 +17,9 @@ class LogsTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dateAndTimes.removeValueForKey("day")
-        dateAndTimes.removeAll(keepCapacity: false)
         dateAndTimes.updateValue(["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/15/14" )
-        dateAndTimes.updateValue(["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/16/14" )
+        dateAndTimes.updateValue(["11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/16/14" )
+        dateAndTimes.updateValue(["18","19","20","21","22","23"], forKey: "11/14/14")
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -46,31 +46,24 @@ class LogsTVC: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         
-        println(section)
-        if (section==0){
-            return 0
-        }
-        else if (section==1) {
-            return (dateAndTimes["11/15/14"]! as Array).count
-        }
-        else {
-            return (dateAndTimes["11/16/14"]! as Array).count
-        }
+        var dateArray = [String](dateAndTimes.keys)
+        return (dateAndTimes[dateArray[section]]! as Array).count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
 
-        if (cell.textLabel.text?==nil) {
-            var temp=(dateAndTimes["11/15/14"]! as Array)
-            cell.textLabel.text="\(temp[indexPath.row])"
-        }
+        var dateArray = [String](dateAndTimes.keys)
+        var number = indexPath.section
+        cell.textLabel.text = (dateAndTimes[dateArray[number]]! as Array)[indexPath.row]
+        
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section Header"
+        var dateArray = [String](dateAndTimes.keys)
+        return dateArray[section]
     }
     
     /*
@@ -118,7 +111,7 @@ class LogsTVC: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -126,6 +119,44 @@ class LogsTVC: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
