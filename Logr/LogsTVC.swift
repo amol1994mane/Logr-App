@@ -9,21 +9,18 @@
 import UIKit
 
 class LogsTVC: UITableViewController {
-    
-    struct logs {
-        var dateAndTimes: [String:[String]]
-    }
 
-    var unfilledLogs: [logs] = []
-    var day1 = logs(dateAndTimes: ["11/15/14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
-                                "11/16/14":["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]])
+    
+    var dateAndTimes: [String:[String]] = ["day":["1","2"]]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        unfilledLogs.append(day1)
+        dateAndTimes.removeValueForKey("day")
+        dateAndTimes.removeAll(keepCapacity: false)
+        dateAndTimes.updateValue(["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/15/14" )
+        dateAndTimes.updateValue(["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/16/14" )
         
-        //println(unfilledLogs[0].dateAndTimes["11/15/14"])
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -42,13 +39,23 @@ class LogsTVC: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return unfilledLogs.count
+        return dateAndTimes.count
     }
 
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 1
+        
+        println(section)
+        if (section==0){
+            return 0
+        }
+        else if (section==1) {
+            return (dateAndTimes["11/15/14"]! as Array).count
+        }
+        else {
+            return (dateAndTimes["11/16/14"]! as Array).count
+        }
     }
 
     
@@ -56,9 +63,14 @@ class LogsTVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
 
         if (cell.textLabel.text?==nil) {
-        
+            var temp=(dateAndTimes["11/15/14"]! as Array)
+            cell.textLabel.text="\(temp[indexPath.row])"
         }
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section Header"
     }
     
     /*
