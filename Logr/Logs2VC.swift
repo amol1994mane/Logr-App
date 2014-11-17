@@ -6,6 +6,13 @@
 //  Copyright (c) 2014 ManeAppWorld. All rights reserved.
 //
 
+/*
+Make date and time real time, start the app from a particular date.
+Set up the log tab so that it doesn't display date/time combinations that already exist in the json.
+Start showing some data in the other tabs (doesn't have to be too pretty yet, text is fine!).
+Make your data entry interface a little prettier perhaps - sliders for happiness, multi-line text field for journal.
+*/
+
 import UIKit
 
 protocol logCompleted:NSObjectProtocol {
@@ -23,33 +30,49 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
     var date = ""
     var time = ""
     
-    let file="json.data"
+    let file="json3.data"
     
     @IBAction func DoneButton(sender: AnyObject) {
         
+        /*
+        {
+        "11\/16\/14" : {
+            "11" : {
+                "journal" : "skinned my knee",
+                "happiness" : "3",
+                "productivity" : "2",
+                "goal" : "played soccer"
+                }
+            }
+        }
+        */
+        
         if (goalField.text != "" && happinessField.text != "" && productivityField.text != "" && journalField.text != "") {
-            
-            var json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
+            var json:JSON
+            if isPreviousData() {
+                json = loadPreviousData()
+                if (json[date] == nil) {
+                    json[date] = ["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]
+                } else {
+                    json[date][time] = ["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]
+                }
+            } else {
+                json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
+            }
+            //WRITE THE FILE
             var error:NSError?
             let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
             jsonData.writeToFile(getFilePath(), options: NSDataWritingOptions.DataWritingFileProtectionNone, error: &error)
             if let theError = error {
                 print("\(theError.localizedDescription)")
             }
-            
             resignFirstResponder()
             clearFields()
-            
             var previousData = loadPreviousData()
             println(previousData)
-            
-            //figure out how to rewrite JSON data after including new data and putting it in relevant hierarchy
-            
             delegate!.didCompleteLog()
             self.navigationController!.popViewControllerAnimated(true)
-            
         }
-            
         else {
             //display an alert view "please fill out all parts"
         }
@@ -60,6 +83,19 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         happinessField.text=""
         productivityField.text=""
         journalField.text=""
+    }
+    
+    
+    func isPreviousData() ->Bool {
+        var error:NSError?
+        let previousNSData:NSData? = NSData(contentsOfFile: getFilePath(), options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &error)
+        if let theError = error {
+            return false
+        }
+        if let previousNSDataUnwrapped = previousNSData {
+            return true
+        }
+        return false
     }
     
     func loadPreviousData() ->JSON {
@@ -97,6 +133,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     /*
     // MARK: - Navigation
     
