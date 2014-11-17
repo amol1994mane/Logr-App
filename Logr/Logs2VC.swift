@@ -8,30 +8,49 @@
 
 import UIKit
 
-class Logs2VC: UIViewController {
+protocol logCompleted:NSObjectProtocol {
+    func didCompleteLog()
+}
 
-    @IBOutlet weak var goalField: UITextField!
+class Logs2VC: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var goalField: UITextField! //figure out a way to make checkboxes for options
     @IBOutlet weak var happinessField: UITextField!
     @IBOutlet weak var productivityField: UITextField!
     @IBOutlet weak var journalField: UITextField!
     
+    var delegate:logCompleted?
+    
     let file="json.data"
     
     @IBAction func DoneButton(sender: AnyObject) {
-        var json=JSON(["10-11-14":["08":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
-        var error:NSError?
-        let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
-        jsonData.writeToFile(getFilePath(), options: NSDataWritingOptions.DataWritingFileProtectionNone, error: &error)
-        if let theError = error {
-            print("\(theError.localizedDescription)")
+        
+        if (goalField.text != "" && happinessField.text != "" && productivityField.text != "" && journalField.text != "") {
+            
+            var json=JSON(["10-11-14":["08":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
+            var error:NSError?
+            let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
+            jsonData.writeToFile(getFilePath(), options: NSDataWritingOptions.DataWritingFileProtectionNone, error: &error)
+            if let theError = error {
+                print("\(theError.localizedDescription)")
+            }
+            
+            resignFirstResponder()
+            clearFields()
+            
+            var previousData = loadPreviousData()
+            println(previousData)
+            
+            //figure out how to rewrite JSON data after including new data and putting it in relevant hierarchy
+            
+            delegate!.didCompleteLog()
+            //pop back to the previous View Controller
+            
         }
-        
-        clearFields()
-        
-        var previousData = loadPreviousData()
-        println(previousData)
-        //figure out a way to make checkboxes for options
-        //after clicking done, app should shift to the previous table. table should have been updated (one less cell because we filled out information for it)
+            
+        else {
+            //display an alert view "please fill out all parts"
+        }
     }
     
     func clearFields() {
@@ -51,29 +70,9 @@ class Logs2VC: UIViewController {
         else {
             previousJSON=JSON(data:previousNSData!)
         }
-    return previousJSON!
+        return previousJSON!
     }
     
-    /*
-    @IBAction func loadName(sender: AnyObject) {
-    
-    var error:NSError?
-    let data:NSData? = NSData(contentsOfFile: getFilePath(), options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &error)
-    if let theError = error {
-    print("\(theError.localizedDescription)")
-    } else {
-    let json = JSON(data:data!)
-    let name = json["name"].string
-    if name != nil{
-    nameField.text = name
-    }
-    if let surname = json["surname"].string {
-    surnameField.text = surname
-    }
-    }
-    }
-    */
-
     func getFilePath()->String {
         let dirs:[String]? = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String]
         var path = ""
@@ -88,22 +87,22 @@ class Logs2VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

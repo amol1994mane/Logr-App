@@ -8,10 +8,11 @@
 
 import UIKit
 
-class LogsTVC: UITableViewController {
+class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
 
     
-    var dateAndTimes: [String:[String]] = ["day":["1","2"]]
+    var dateAndTimes = ["day":["1","2"]]
+    var toBeFilled = ["date",1]
     
     
     override func viewDidLoad() {
@@ -116,17 +117,38 @@ class LogsTVC: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        
+        var indexPath = self.tableView.indexPathForSelectedRow()!
+        
+        var dateArray = [String](dateAndTimes.keys)
+        
+        var section = indexPath.section
+        var row = indexPath.row
+        
+        var date = dateArray[indexPath.section]
+        var time = row
+        
+        toBeFilled[0]=date
+        toBeFilled[1]=time
+
+        let logs2VC=segue.destinationViewController as Logs2VC
+        logs2VC.delegate=self
     }
     
-    
-    
-    
-    
-    
-    
-    
+    func didCompleteLog() {
+        var date = toBeFilled[0] as String
+        var time = toBeFilled[1] as Int
+        
+        if ( (dateAndTimes[date]! as Array).count > 1) {
+            //delete only the time
+            (dateAndTimes[date]!).removeAtIndex(time)
+        }
+        else {
+            //delete both date and time
+            dateAndTimes.removeValueForKey(date)
+        }
+        self.tableView.reloadData()
+    }
     
     
     
