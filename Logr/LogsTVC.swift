@@ -133,6 +133,20 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
 
         let logs2VC=segue.destinationViewController as Logs2VC
         logs2VC.delegate=self
+        logs2VC.date = date
+        logs2VC.time = (dateAndTimes[date]! as Array)[time]
+        
+        /*
+        if segue.identifier == "ToDetail" {
+            let indexPath = self.tableView.indexPathForSelectedRow()
+            let theSelectedRow = listOfContacts[indexPath!.row]
+            let theDestination = (segue.destinationViewController as ContactDetails)
+            
+            theDestination.contactName = theSelectedRow.name
+            theDestination.contactPhone = theSelectedRow.phoneNumber
+        }
+        */
+        
     }
     
     func didCompleteLog() {
@@ -150,7 +164,11 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         self.tableView.reloadData()
     }
     
-    
+    func getLogDetails(aName: String) -> [String] {
+        var date = toBeFilled[0] as String
+        var time = toBeFilled[1] as String
+        return [date,time]
+    }
     
     
     

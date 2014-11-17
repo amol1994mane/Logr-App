@@ -20,6 +20,8 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var journalField: UITextField!
     
     var delegate:logCompleted?
+    var date = ""
+    var time = ""
     
     let file="json.data"
     
@@ -27,7 +29,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         
         if (goalField.text != "" && happinessField.text != "" && productivityField.text != "" && journalField.text != "") {
             
-            var json=JSON(["10-11-14":["08":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
+            var json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
             var error:NSError?
             let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
             jsonData.writeToFile(getFilePath(), options: NSDataWritingOptions.DataWritingFileProtectionNone, error: &error)
@@ -44,7 +46,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
             //figure out how to rewrite JSON data after including new data and putting it in relevant hierarchy
             
             delegate!.didCompleteLog()
-            //pop back to the previous View Controller
+            self.navigationController!.popViewControllerAnimated(true)
             
         }
             
