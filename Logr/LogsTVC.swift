@@ -137,7 +137,7 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         logs2VC.time = (dateAndTimes[date]! as Array)[time]
         
         /*
-        if segue.identifier == "ToDetail" {
+        if segue.identifier == "ToDetail"  {
             let indexPath = self.tableView.indexPathForSelectedRow()
             let theSelectedRow = listOfContacts[indexPath!.row]
             let theDestination = (segue.destinationViewController as ContactDetails)
