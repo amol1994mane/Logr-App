@@ -10,18 +10,92 @@ import UIKit
 
 class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
 
-    
     var dateAndTimes = ["day":["1","2"]]
     var toBeFilled = ["date",1]
     
+    func stringToDate(#year:Int, month:Int, day:Int, hour:Int, minutes: Int) -> NSDate {
+        var c = NSDateComponents()
+        c.year = year
+        c.month = month
+        c.day = day
+        c.hour = hour
+        c.minute = minutes
+        
+        var gregorian = NSCalendar(identifier:NSGregorianCalendar)
+        var date = gregorian!.dateFromComponents(c)
+        return date!
+    }
+    
+    func dateToString (date: NSDate) -> (year: Int, month: Int, day: Int, hour: Int, minutes: Int){
+        var calendar = NSCalendar.currentCalendar()
+        var c = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+        var year = c.year
+        var month = c.month
+        var day = c.day
+        var hour = c.hour
+        var minutes = c.minute
+        return (year: year, month: month, day: day, hour: hour, minutes: minutes)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //string will be the time at which user opens the app for the first time
+        var startTime = stringToDate(year: 2014, month: 11, day: 20, hour: 08, minutes: 00)
+        var nowTime = NSDate()
+        var difference = nowTime.timeIntervalSinceDate(startTime)
+        println(startTime)
+        println(nowTime)
+        println(difference)
+        
+        var s:Int = Int(difference)
+        var m = s/60
+        var h = m/60
+        var d = h/24
+        
+        var counter = h - (8 * d)
+        var c = 0
+        
+        var hoursInLastDay = h - (d * 24)
+        
+        var daysAndHours1=[0:["0"]]
+        var hours=["0"]
+        daysAndHours1.removeAll(keepCapacity: false)
+        hours.removeAtIndex(0)
+        
+        for i in 0...d {
+            for j in 08...23 {
+                if(c<=counter) {
+                    hours.append(String(j))
+                    c++
+                }
+            }
+            daysAndHours1.updateValue(hours, forKey: i)
+            hours.removeAll(keepCapacity: false)
+        }
+        
+        println(daysAndHours1)
+        /*
+        var daysAndHours2:[String:[String]] = ["lol":["0"]]
+        daysAndHours2.removeAll(keepCapacity: false)
+        */
+        dateAndTimes.removeAll(keepCapacity: false)
+        for i in 0...d {
+            var interval = 86400 * Double(i)
+            var dayDate = startTime.dateByAddingTimeInterval(interval)
+            var formatter = NSDateFormatter()
+            formatter.dateStyle = .ShortStyle
+            var dayString = formatter.stringFromDate(dayDate)
+            println(dayString)
+            dateAndTimes.updateValue( daysAndHours1[i]!, forKey: dayString)
+        }
+        println(dateAndTimes)
+        
+        /*
         dateAndTimes.removeValueForKey("day")
         dateAndTimes.updateValue(["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/15/14" )
         dateAndTimes.updateValue(["11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/16/14" )
         dateAndTimes.updateValue(["18","19","20","21","22","23"], forKey: "11/14/14")
-        
+        */
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -116,7 +190,7 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         var indexPath = self.tableView.indexPathForSelectedRow()!
         

@@ -66,12 +66,12 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
             if let theError = error {
                 print("\(theError.localizedDescription)")
             }
+            else {
             resignFirstResponder()
             clearFields()
-            var previousData = loadPreviousData()
-            println(previousData)
             delegate!.didCompleteLog()
             self.navigationController!.popViewControllerAnimated(true)
+            }
         }
         else {
             //display an alert view "please fill out all parts"
