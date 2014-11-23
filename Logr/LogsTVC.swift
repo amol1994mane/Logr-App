@@ -43,9 +43,9 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         var startTime = stringToDate(year: 2014, month: 11, day: 20, hour: 08, minutes: 00)
         var nowTime = NSDate()
         var difference = nowTime.timeIntervalSinceDate(startTime)
-        println(startTime)
-        println(nowTime)
-        println(difference)
+        //println(startTime)
+        //println(nowTime)
+        //println(difference)
         
         var s:Int = Int(difference)
         var m = s/60
@@ -73,29 +73,56 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
             hours.removeAll(keepCapacity: false)
         }
         
-        println(daysAndHours1)
-        /*
-        var daysAndHours2:[String:[String]] = ["lol":["0"]]
-        daysAndHours2.removeAll(keepCapacity: false)
-        */
         dateAndTimes.removeAll(keepCapacity: false)
+        
         for i in 0...d {
             var interval = 86400 * Double(i)
             var dayDate = startTime.dateByAddingTimeInterval(interval)
             var formatter = NSDateFormatter()
             formatter.dateStyle = .ShortStyle
             var dayString = formatter.stringFromDate(dayDate)
-            println(dayString)
+            dayString = dayString.stringByReplacingOccurrencesOfString("/", withString: "-", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            //println(dayString)
             dateAndTimes.updateValue( daysAndHours1[i]!, forKey: dayString)
         }
-        println(dateAndTimes)
         
-        /*
-        dateAndTimes.removeValueForKey("day")
-        dateAndTimes.updateValue(["08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/15/14" )
-        dateAndTimes.updateValue(["11","12","13","14","15","16","17","18","19","20","21","22","23"], forKey: "11/16/14" )
-        dateAndTimes.updateValue(["18","19","20","21","22","23"], forKey: "11/14/14")
-        */
+
+        
+        
+        
+        //THISISBULLSHIT////////////////////////////////////////////////////////
+        var copy = Logs2VC()
+        var jsonData = copy.loadPreviousData()
+        println(jsonData)
+        
+        var dateArray = [String](dateAndTimes.keys)
+        for x in 0...(dateArray.count - 1) {
+            
+            var hrs = (dateAndTimes[dateArray[x]]! as Array).count - 1
+            var cc = 0
+            for j in 0...hrs {
+                
+                var t = jsonData[dateArray[x]]["\(j+8)"]["journal"]
+                println(t)
+                var f:Bool
+                if (t != nil) {
+                    f = true
+                }
+                else {
+                    f = false
+                }
+                if (f){
+                    //println(dateAndTimes[dateArray[x]])
+                    dateAndTimes[dateArray[x]]?.removeAtIndex(j-cc)
+                    cc++
+                    //println(dateAndTimes[dateArray[x]])
+                }
+                if ((dateAndTimes[dateArray[x]]! as Array).count == 0){
+                    dateAndTimes.removeValueForKey(dateArray[x])
+                }
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

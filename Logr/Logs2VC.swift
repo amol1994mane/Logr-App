@@ -30,7 +30,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
     var date = ""
     var time = ""
     
-    let file="json3.data"
+    let file="json11.data"
     
     @IBAction func DoneButton(sender: AnyObject) {
         
@@ -51,6 +51,10 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
             var json:JSON
             if isPreviousData() {
                 json = loadPreviousData()
+                
+                println(date)
+                println(time)
+                
                 if (json[date] == nil) {
                     json[date] = ["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]
                 } else {
@@ -59,6 +63,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
             } else {
                 json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
             }
+            println(json)
             //WRITE THE FILE
             var error:NSError?
             let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
@@ -76,6 +81,12 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         else {
             //display an alert view "please fill out all parts"
         }
+    }
+    
+    func getFile() -> JSON {
+        var json:JSON
+        json = loadPreviousData()
+        return json
     }
     
     func clearFields() {
@@ -107,6 +118,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         }
         else {
             previousJSON=JSON(data:previousNSData!)
+            
         }
         return previousJSON!
     }
