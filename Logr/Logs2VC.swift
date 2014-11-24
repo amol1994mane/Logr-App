@@ -16,9 +16,25 @@ protocol logCompleted:NSObjectProtocol {
 class Logs2VC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var goalField: UITextField! //figure out a way to make checkboxes for options
-    @IBOutlet weak var happinessField: UITextField!
-    @IBOutlet weak var productivityField: UITextField!
+    //@IBOutlet weak var happinessField: UITextField!
+    //@IBOutlet weak var productivityField: UITextField!
     @IBOutlet weak var journalField: UITextField!
+    
+    @IBOutlet weak var sLabel: UILabel!
+    @IBOutlet weak var sl: UISlider!
+    @IBAction func slValueChanged(sender: AnyObject) {
+        var a = Int(sl.value)
+        sLabel.text = "\(a)"
+    }
+
+    @IBOutlet weak var s2Label: UILabel!
+    @IBOutlet weak var sl2: UISlider!
+    @IBAction func sl2ValueChanged(sender: AnyObject) {
+        var b = Int(sl2.value)
+        s2Label.text = "\(b)"
+    }
+    
+    
     
     var delegate:logCompleted?
     var date = ""
@@ -41,21 +57,20 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         }
         */
         
-        if (goalField.text != "" && happinessField.text != "" && productivityField.text != "" && journalField.text != "") {
+        if (goalField.text != "" && sLabel.text != "" && s2Label.text != "" && journalField.text != "") {
             var json:JSON
             if isPreviousData() {
                 json = loadPreviousData()
-                
                 //println(date)
                 //println(time)
                 
                 if (json[date] == nil) {
-                    json[date] = ["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]
+                    json[date] = ["\(time)":["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalField.text]]
                 } else {
-                    json[date][time] = ["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]
+                    json[date][time] = ["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalField.text]
                 }
             } else {
-                json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
+                json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalField.text]]])
             }
             //println(json)
             //WRITE THE FILE
@@ -85,8 +100,8 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
     
     func clearFields() {
         goalField.text=""
-        happinessField.text=""
-        productivityField.text=""
+        //happinessField.text=""
+        //productivityField.text=""
         journalField.text=""
     }
     
@@ -128,10 +143,9 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         }
         return path
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
     }
     
