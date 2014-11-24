@@ -6,12 +6,6 @@
 //  Copyright (c) 2014 ManeAppWorld. All rights reserved.
 //
 
-/*
-Make date and time real time, start the app from a particular date.
-Set up the log tab so that it doesn't display date/time combinations that already exist in the json.
-Start showing some data in the other tabs (doesn't have to be too pretty yet, text is fine!).
-Make your data entry interface a little prettier perhaps - sliders for happiness, multi-line text field for journal.
-*/
 
 import UIKit
 
@@ -30,7 +24,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
     var date = ""
     var time = ""
     
-    let file="json11.data"
+    let file="json22.data"
     
     @IBAction func DoneButton(sender: AnyObject) {
         
@@ -52,8 +46,8 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
             if isPreviousData() {
                 json = loadPreviousData()
                 
-                println(date)
-                println(time)
+                //println(date)
+                //println(time)
                 
                 if (json[date] == nil) {
                     json[date] = ["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]
@@ -63,7 +57,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
             } else {
                 json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":happinessField.text, "productivity":productivityField.text, "journal":journalField.text]]])
             }
-            println(json)
+            //println(json)
             //WRITE THE FILE
             var error:NSError?
             let jsonData:NSData = json.rawData(options: NSJSONWritingOptions.PrettyPrinted, error:&error)!
@@ -115,12 +109,12 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         var previousJSON:JSON?
         if let theError = error {
             println("\(theError.localizedDescription)")
+            return nil
         }
         else {
             previousJSON=JSON(data:previousNSData!)
-            
+            return previousJSON!
         }
-        return previousJSON!
     }
     
     func getFilePath()->String {

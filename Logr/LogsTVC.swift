@@ -9,9 +9,10 @@
 import UIKit
 
 class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
-
+    
     var dateAndTimes = ["day":["1","2"]]
     var toBeFilled = ["date",1]
+    var filledLogs = ["day":["1"]]
     
     func stringToDate(#year:Int, month:Int, day:Int, hour:Int, minutes: Int) -> NSDate {
         var c = NSDateComponents()
@@ -74,6 +75,7 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         }
         
         dateAndTimes.removeAll(keepCapacity: false)
+        filledLogs.removeAll(keepCapacity: false)
         
         for i in 0...d {
             var interval = 86400 * Double(i)
@@ -86,16 +88,11 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
             dateAndTimes.updateValue( daysAndHours1[i]!, forKey: dayString)
         }
         
-
-        
-        
-        
-        //THISISBULLSHIT////////////////////////////////////////////////////////
         var copy = Logs2VC()
         var jsonData = copy.loadPreviousData()
-        println(jsonData)
         
         var dateArray = [String](dateAndTimes.keys)
+        
         for x in 0...(dateArray.count - 1) {
             
             var hrs = (dateAndTimes[dateArray[x]]! as Array).count - 1
@@ -103,7 +100,6 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
             for j in 0...hrs {
                 
                 var t = jsonData[dateArray[x]]["\(j+8)"]["journal"]
-                println(t)
                 var f:Bool
                 if (t != nil) {
                     f = true
@@ -113,37 +109,44 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
                 }
                 if (f){
                     //println(dateAndTimes[dateArray[x]])
-                    dateAndTimes[dateArray[x]]?.removeAtIndex(j-cc)
+                    var add = dateAndTimes[dateArray[x]]?.removeAtIndex(j-cc)
+                    if ((filledLogs[dateArray[x]]) != nil){
+                        var hrs = filledLogs[dateArray[x]]! as Array
+                        hrs.append(add!)
+                        filledLogs.updateValue(hrs, forKey: dateArray[x])
+                    }
+                    else {
+                        var arr:[String] = [add! as String]
+                        filledLogs.updateValue(arr, forKey: dateArray[x])
+                    }
                     cc++
-                    //println(dateAndTimes[dateArray[x]])
                 }
                 if ((dateAndTimes[dateArray[x]]! as Array).count == 0){
                     dateAndTimes.removeValueForKey(dateArray[x])
                 }
             }
         }
-        ///////////////////////////////////////////////////////////////////////
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return dateAndTimes.count
     }
-
+    
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
@@ -151,11 +154,11 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         var dateArray = [String](dateAndTimes.keys)
         return (dateAndTimes[dateArray[section]]! as Array).count
     }
-
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-
+        
         var dateArray = [String](dateAndTimes.keys)
         var number = indexPath.section
         cell.textLabel.text = (dateAndTimes[dateArray[number]]! as Array)[indexPath.row]
@@ -176,46 +179,46 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     */
-
-
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    // Return NO if you do not want the specified item to be editable.
+    return true
     }
     */
-
+    
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
     }
     */
-
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
+    
     }
     */
-
+    
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
+    // Return NO if you do not want the item to be re-orderable.
+    return true
     }
     */
-
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
@@ -231,22 +234,12 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         
         toBeFilled[0]=date
         toBeFilled[1]=time
-
+        
         let logs2VC=segue.destinationViewController as Logs2VC
         logs2VC.delegate=self
         logs2VC.date = date
         logs2VC.time = (dateAndTimes[date]! as Array)[time]
-        
-        /*
-        if segue.identifier == "ToDetail"  {
-            let indexPath = self.tableView.indexPathForSelectedRow()
-            let theSelectedRow = listOfContacts[indexPath!.row]
-            let theDestination = (segue.destinationViewController as ContactDetails)
-            
-            theDestination.contactName = theSelectedRow.name
-            theDestination.contactPhone = theSelectedRow.phoneNumber
-        }
-        */
+
         
     }
     
@@ -256,7 +249,17 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         
         if ( (dateAndTimes[date]! as Array).count > 1) {
             //delete only the time
-            (dateAndTimes[date]!).removeAtIndex(time)
+            var add = (dateAndTimes[date]!).removeAtIndex(time)
+            println(filledLogs)
+            if ((filledLogs[date]) != nil) {
+                var arr = filledLogs[date]
+                println(arr)
+                filledLogs.updateValue(arr!, forKey: date)
+            }
+            else {
+                var arr = [add]
+                filledLogs.updateValue(arr, forKey: date)
+            }
         }
         else {
             //delete both date and time
@@ -271,6 +274,10 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         return [date,time]
     }
     
+    func getFilledLogs() -> [String:[String]] {
+        self.viewDidLoad()
+        return filledLogs
+    }
     
     
     
@@ -299,5 +306,4 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
     
     
     
-
 }
