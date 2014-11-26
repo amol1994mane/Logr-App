@@ -35,8 +35,8 @@ class JournalTVC: UITableViewController, UITableViewDelegate, journalChecked {
         var copy2 = LogsTVC()
         filledLogs = copy2.getFilledLogs()
         
-        println(jsonData)
-        println(filledLogs)
+        //println(jsonData)
+        //println(filledLogs)
         
         var dateArray = [String](filledLogs.keys)
         
@@ -65,7 +65,7 @@ class JournalTVC: UITableViewController, UITableViewDelegate, journalChecked {
             //journals = ["":["":""]]
             //}
         
-        println(journals)
+        //println(journals)
     }
     
     override func didReceiveMemoryWarning() {

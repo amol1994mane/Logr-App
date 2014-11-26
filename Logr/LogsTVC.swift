@@ -27,7 +27,7 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
         return date!
     }
     
-    func dateToString (date: NSDate) -> (year: Int, month: Int, day: Int, hour: Int, minutes: Int){
+    class func dateToString (date: NSDate) -> (year: Int, month: Int, day: Int, hour: Int, minutes: Int){
         var calendar = NSCalendar.currentCalendar()
         var c = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
         var year = c.year
@@ -40,6 +40,10 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //var trial = Notifications()
+        //trial.createArray(NSDate())
+        
         //string will be the time at which user opens the app for the first time
         var startTime = stringToDate(year: 2014, month: 11, day: 20, hour: 08, minutes: 00)
         var nowTime = NSDate()
@@ -87,6 +91,8 @@ class LogsTVC: UITableViewController, UITableViewDelegate, logCompleted {
             //println(dayString)
             dateAndTimes.updateValue( daysAndHours1[i]!, forKey: dayString)
         }
+        
+        //send notifications once dateAndTimes hour gets updated
         
         var copy = Logs2VC()
         var jsonData = copy.loadPreviousData()

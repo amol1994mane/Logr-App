@@ -15,10 +15,8 @@ protocol logCompleted:NSObjectProtocol {
 
 class Logs2VC: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var goalField: UITextField! //figure out a way to make checkboxes for options
-    //@IBOutlet weak var happinessField: UITextField!
-    //@IBOutlet weak var productivityField: UITextField!
-    @IBOutlet weak var journalField: UITextField!
+    @IBOutlet weak var goalField: UITextField! //figure out a way to make checkboxes for option
+    @IBOutlet weak var journalTextView: UITextView!
     
     @IBOutlet weak var sLabel: UILabel!
     @IBOutlet weak var sl: UISlider!
@@ -40,7 +38,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
     var date = ""
     var time = ""
     
-    let file="json22.data"
+    let file="json23.data"
     
     @IBAction func DoneButton(sender: AnyObject) {
         
@@ -57,20 +55,18 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         }
         */
         
-        if (goalField.text != "" && sLabel.text != "" && s2Label.text != "" && journalField.text != "") {
+        if (goalField.text != "" && /*sLabel.text != "" && s2Label.text != "" && */journalTextView.text != "") {
             var json:JSON
             if isPreviousData() {
                 json = loadPreviousData()
-                //println(date)
-                //println(time)
-                
+
                 if (json[date] == nil) {
-                    json[date] = ["\(time)":["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalField.text]]
+                    json[date] = ["\(time)":["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalTextView.text]]
                 } else {
-                    json[date][time] = ["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalField.text]
+                    json[date][time] = ["goal":goalField.text, "happiness":sLabel.text!, "productivity":s2Label.text!, "journal":journalTextView.text]
                 }
             } else {
-                json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalField.text]]])
+                json=JSON(["\(date)":["\(time)":["goal":goalField.text, "happiness":sLabel.text, "productivity":s2Label.text, "journal":journalTextView.text]]])
             }
             //println(json)
             //WRITE THE FILE
@@ -102,7 +98,7 @@ class Logs2VC: UIViewController, UITextFieldDelegate {
         goalField.text=""
         //happinessField.text=""
         //productivityField.text=""
-        journalField.text=""
+        journalTextView.text=""
     }
     
     

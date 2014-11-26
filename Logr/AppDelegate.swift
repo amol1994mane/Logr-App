@@ -15,8 +15,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        scheduleNotifications(application)
         return true
+    }
+    
+    func scheduleNotifications(application: UIApplication) {
+        
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        
+        var notificationsArray = Notifications().getNotificationsArray()
+        println(notificationsArray.count)
+        
+        for x in 0...(notificationsArray.count - 1) {
+            var localNotification:UILocalNotification = UILocalNotification()
+            localNotification.alertAction = "Enter Log"
+            localNotification.alertBody = "Record what you did in the last hour!"
+            localNotification.fireDate = notificationsArray[x]
+            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            
+            /*
+            //to confirm if notifications are being sent at the right time
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle //Set time style
+            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle //Set date style
+            dateFormatter.timeZone = NSTimeZone()
+            let localDate = dateFormatter.stringFromDate(notificationsArray[x])
+            println(localDate)
+            */
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

@@ -17,6 +17,7 @@
 		9F04626119FEA0DF00D16FB2 /* JournalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04626019FEA0DF00D16FB2 /* JournalTVC.swift */; };
 		9F04626319FEA3D000D16FB2 /* Journal2TVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04626219FEA3D000D16FB2 /* Journal2TVC.swift */; };
 		9F04626519FEA69C00D16FB2 /* GoalsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04626419FEA69C00D16FB2 /* GoalsTVC.swift */; };
+		9F4F51481A2447D800F6D25D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F51471A2447D800F6D25D /* Notifications.swift */; };
 		9FABF6981A1060A200353626 /* Logs2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FABF6971A1060A200353626 /* Logs2VC.swift */; };
 		9FABF69A1A1067F300353626 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FABF6991A1067F300353626 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		9F04626019FEA0DF00D16FB2 /* JournalTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalTVC.swift; sourceTree = "<group>"; };
 		9F04626219FEA3D000D16FB2 /* Journal2TVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal2TVC.swift; sourceTree = "<group>"; };
 		9F04626419FEA69C00D16FB2 /* GoalsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTVC.swift; sourceTree = "<group>"; };
+		9F4F51471A2447D800F6D25D /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		9FABF6971A1060A200353626 /* Logs2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs2VC.swift; sourceTree = "<group>"; };
 		9FABF6991A1067F300353626 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +96,7 @@
 				9F04623A19FE262200D16FB2 /* AppDelegate.swift */,
 				9F04623C19FE262200D16FB2 /* ViewController.swift */,
 				9F04623E19FE262200D16FB2 /* Main.storyboard */,
+				9F4F51471A2447D800F6D25D /* Notifications.swift */,
 				9F04626419FEA69C00D16FB2 /* GoalsTVC.swift */,
 				9F04625E19FEA0CF00D16FB2 /* LogsTVC.swift */,
 				9FABF6971A1060A200353626 /* Logs2VC.swift */,
@@ -234,6 +237,7 @@
 				9F04626319FEA3D000D16FB2 /* Journal2TVC.swift in Sources */,
 				9F04623D19FE262200D16FB2 /* ViewController.swift in Sources */,
 				9F04626519FEA69C00D16FB2 /* GoalsTVC.swift in Sources */,
+				9F4F51481A2447D800F6D25D /* Notifications.swift in Sources */,
 				9FABF69A1A1067F300353626 /* SwiftyJSON.swift in Sources */,
 				9F04623B19FE262200D16FB2 /* AppDelegate.swift in Sources */,
 				9F04626119FEA0DF00D16FB2 /* JournalTVC.swift in Sources */,
